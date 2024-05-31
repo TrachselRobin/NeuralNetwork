@@ -40,6 +40,21 @@ class NeuralNetwork:
                 neuron.weights = [float(x) for x in lines[i].split()]
                 i += 1
 
+    def saveModel(self, fileName):
+        with open(fileName, "w") as f:
+            f.write(f"{self.amountInputNeurons}\n")
+            f.write(f"{self.amountHiddenNeurons}\n")
+            f.write(f"{self.amountHiddenLayers}\n")
+            f.write(f"{self.amountOutputNeurons}\n")
+            f.write(f"{self.learningRate}\n")
+            for neuron in self.inputLayer:
+                f.write(" ".join([str(x) for x in neuron.weights]) + "\n")
+            for layer in self.hiddenLayers:
+                for neuron in layer.neurons:
+                    f.write(" ".join([str(x) for x in neuron.weights]) + "\n")
+            for neuron in self.outputLayer:
+                f.write(" ".join([str(x) for x in neuron.weights]) + "\n")
+
 
 class InputNeuron:
     def __init__(self, network):
