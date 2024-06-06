@@ -25,7 +25,7 @@ def train(network, training_data, epochs=1000):
             print(f'Epoch {epoch} complete')
 
 
-def testNetwork(network):
+def networkTesting(network):
     test_cases = [
         (2, 13),
         (50, 50),
@@ -54,7 +54,7 @@ def train_until_correct(network, firstNumber, secondNumber, target_sum=18, toler
         print("Max iterations reached without achieving the desired accuracy.")
 
 
-def test_guess(network):
+def guessTesting(network):
     inputs = [5, 13]
     result = network.guess(inputs)[0]
     print(f"Guessing sum of {inputs[0]} and {inputs[1]}: {result:.4f} (Expected: 18)")
@@ -73,7 +73,7 @@ def whileTrain(network):
         network.train([firstDigit, secondDigit], [firstDigit + secondDigit])
         guess = network.guess([firstDigit, secondDigit])
         accuracy = calculate_accuracy(firstDigit + secondDigit, guess)
-        if accuracy >= 80.0:
+        if accuracy >= 99.9:
             highPercentage += 1
             print(f"Accuracy: {accuracy}%")
             print(f"First digit: {firstDigit}\nSecond digit: {secondDigit}\nResult: {firstDigit + secondDigit}\nGuess: {guess[0]}\n{highPercentage}/{iterations}\n")
@@ -93,7 +93,7 @@ def calculate_accuracy(expected, actual):
 
 if __name__ == '__main__':
     # Initialize the network
-    network = NeuralNetwork(amountInputNeurons=2, amountHiddenLayers=1, amountHiddenNeurons=20, amountOutputNeurons=1)
+    network = NeuralNetwork(amountInputNeurons=2, amountHiddenLayers=1, amountHiddenNeurons=100, amountOutputNeurons=199)
 
     # Generate training data
     # training_data = generate_training_data(10000)
@@ -102,14 +102,14 @@ if __name__ == '__main__':
     # train(network, training_data)
 
     # Test the network
-    # testNetwork(network)
+    # networkTesting(network)
 
     # Alternatively, train until a specific sum is correctly guessed
     # train_until_correct(network, 1, 99)
     # train_until_correct(network, 5, 13)
 
     # Test the network
-    # test_guess(network)
+    # guessTesting(network)
 
     # train until stoped
     whileTrain(network)
