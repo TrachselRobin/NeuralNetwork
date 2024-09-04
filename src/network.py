@@ -63,10 +63,37 @@ class NeuralNetwork:
         return [neuron.value for neuron in self._layers[-1]]
 
     def save(self, filename):
-        pass
+        with open("./models/" + filename, "w") as file:
+            file.write(f"{self.num_inputs}\n")
+            file.write(f"{self.num_hidden_layers}\n")
+            file.write(f"{self.num_neurons_per_hidden_layer}\n")
+            file.write(f"{self.num_outputs}\n")
+            file.write(f"{self.learningRate}\n")
+            for layer in self._layers:
+                for neuron in layer:
+                    file.write(f"{neuron.value}\n")
+                    for weight in neuron.weights:
+                        file.write(f"{weight}\n")
 
     def load(self, filename):
-        pass
+        with open("./models/" + filename, "r") as file:
+            self._num_inputs = int(file.readline())
+            self._num_hidden_layers = int(file.readline())
+            self._num_neurons_per_hidden_layer = int(file.readline())
+            self._num_outputs = int(file.readline())
+            self._learningRate = float(file.readline())
+            self._layers = []
+            for i in range(self._num_inputs + self._num_hidden_layers + self._num_outputs):
+                layer = []
+                for j in range(self._num_neurons_per_hidden_layer):
+                    neuron = Neuron(0)
+                    neuron.value = float(file.readline())
+                    layer.append(neuron)
+                self._layers.append(layer)
+
+                for neuron in layer:
+                    for k in range(len(self._layers[-2])):
+                        neuron.weights.append(float(file.readline()))
 
     def __str__(self):
         pass

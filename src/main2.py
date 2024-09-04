@@ -6,7 +6,8 @@ def whileTrain(network):
     # train two random digits from 1 to 100, but only print the accuracy in percentage
     iterations = 0
     highPercentage = 0
-    while True:
+    maxIterations = 1000
+    for i in range(maxIterations):
         firstDigit = randint(0, 100)
         secondDigit = randint(0, 100)
         network.train([firstDigit, secondDigit], trainingOutput(firstDigit + secondDigit))
@@ -43,7 +44,7 @@ def trainingOutput(sum_result):
 
 if __name__ == '__main__':
     # Initialize the network
-    network = NeuralNetwork(num_inputs=2, num_hidden_layers=2, num_neurons_per_hidden_layer=50, num_outputs=201)
+    network = NeuralNetwork(num_inputs=2, num_hidden_layers=4, num_neurons_per_hidden_layer=50, num_outputs=201)
 
     # guess 51 + 35
     inputs = [51, 35]
@@ -54,6 +55,8 @@ if __name__ == '__main__':
 
     # train until 99.9% accuracy
     whileTrain(network)
+
+    network.save("test.txt")
 
     # guess 5 + 13
     inputs = [5, 13]
